@@ -1,11 +1,11 @@
 # Helix_Bifurcation_Types
 
-Codes for studying the pitch-bifurcation
+Codes for studying the pitch-fork bifurcations of a initially rod with helical centerline.
 
 <p align="center">
-<img src="images/knot_tying.png" alt>
+<img src="images/introduction.png" alt>
 <br>
-<em> Figure 1. Simulation examples for tying overhand knots with various unknotting numbers. </em>
+<em> Figure 1. Studied systems and various types of pitch-fork bifurcations. </em>
 </p>
 
 ***
