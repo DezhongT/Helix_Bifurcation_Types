@@ -10,8 +10,8 @@ Codes for studying the pitch-fork bifurcations of a initially rod with helical c
 
 ***
 
-## How to Use
-This repository contains codes corresponding to three parts of the study. First one is the simulation codes, which are used to conduct the numeric experiments. Second one is the motion planning codes, which are used to do the motion planning for the robotic testbed for automated stability test. The last one is the processing codes of the raw experimental data.
+## Simulation Codes
+The simCodes contain the required codes for executing numeric experiments along various exploring directions in the parameter space as shown in Fig. 1(a)
 
 ### Dependencies
 Install the following C++ dependencies:
