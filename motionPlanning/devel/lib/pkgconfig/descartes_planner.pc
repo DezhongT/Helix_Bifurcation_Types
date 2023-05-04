@@ -1,8 +1,0 @@
-prefix=/home/dezhong/Desktop/PNAS_Code/motionPlanning/devel
-
-Name: descartes_planner
-Description: Description of descartes_planner
-Version: 0.0.1
-Cflags: -I/home/dezhong/Desktop/PNAS_Code/motionPlanning/src/descartes/descartes_planner/include -I/usr/include -I/usr/local/include/eigen3
-Libs: -L${prefix}/lib -ldescartes_planner
-Requires: descartes_core descartes_trajectory roscpp

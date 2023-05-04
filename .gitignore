@@ -1,5 +1,6 @@
 motionPlanning/build/
 motionPlanning/devel/
+motionPlanning/.catkin_workspace
 simCodes/build/
 simCodes/datafiles/
 simCodes/plotFunc/

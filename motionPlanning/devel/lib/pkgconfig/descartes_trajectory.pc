@@ -1,8 +1,0 @@
-prefix=/home/dezhong/Desktop/PNAS_Code/motionPlanning/devel
-
-Name: descartes_trajectory
-Description: Description of descartes_trajectory
-Version: 0.0.1
-Cflags: -I/home/dezhong/Desktop/PNAS_Code/motionPlanning/src/descartes/descartes_trajectory/include -I/usr/include -I/usr/local/include/eigen3
-Libs: -L${prefix}/lib -ldescartes_trajectory
-Requires: descartes_core moveit_core roscpp

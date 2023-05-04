@@ -1,8 +1,0 @@
-prefix=/home/dezhong/Desktop/PNAS_Code/motionPlanning/devel
-
-Name: descartes_utilities
-Description: Description of descartes_utilities
-Version: 0.0.1
-Cflags: -I/home/dezhong/Desktop/PNAS_Code/motionPlanning/src/descartes/descartes_utilities/include
-Libs: -L${prefix}/lib -ldescartes_utilities
-Requires: descartes_core descartes_trajectory trajectory_msgs
