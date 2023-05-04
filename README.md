@@ -10,15 +10,8 @@ Codes for studying the pitch-fork bifurcations of a initially rod with helical c
 
 ***
 
-### Formulation Updates since the Published Paper
-- Explicit and hybrid formulations for IMC were removed. After a Hessian chain ruling bug fix, the fully implicit version is by far superior in terms of performance.
-- Friction has been changed to a fully implicit formulation.
-- Smooth distance has been exchanged for piecewise analytical distance.
-- For full updates, please refer to our new paper [here](https://arxiv.org/abs/2205.10309).
-
-***
-
 ## How to Use
+This repository contains codes corresponding to three parts of the study. First one is the simulation codes, which are used to conduct the numeric experiments. Second one is the motion planning codes, which are used to do the motion planning for the robotic testbed for automated stability test. The last one is the processing codes of the raw experimental data.
 
 ### Dependencies
 Install the following C++ dependencies:
@@ -29,35 +22,6 @@ Install the following C++ dependencies:
     cd eigen-3.4.0 && mkdir build && cd build
     cmake ..
     sudo make install
-    ```
-- [SymEngine](https://github.com/symengine/symengine)
-  - SymEngine is used for symbolic differentiation and function generation.
-  - Before installing SymEngine, LLVM is required which can be installed through apt.
-    ```bash
-    sudo apt-get install llvm
-    ```
-  - Afterwards, install SymEngine from source using the following commands.
-    ```bash
-    git clone https://github.com/symengine/symengine    
-    cd symengine && mkdir build && cd build
-    cmake -DWITH_LLVM=on ..
-    make -j4
-    sudo make install
-    ```
-- [Intel oneAPI Math Kernel Library (oneMKL)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html?operatingsystem=linux&distributions=webdownload&options=online)
-  - Necessary for access to Pardiso, which is used as a sparse matrix solver.
-  - Intel MKL is also used as the BLAS / LAPACK backend for Eigen.
-  - If you are using Linux, follow the below steps. Otherwise, click the link above for your OS.
-    ```bash
-    cd /tmp
-    wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18483/l_onemkl_p_2022.0.2.136.sh
-    
-    # This runs an installer, simply follow the instructions.
-    sudo sh ./l_onemkl_p_2022.0.2.136.sh
-    ```
-  - Add the following to your .bashrc. Change the directory accordingly if your MKL version is different.
-    ```bash
-    export MKLROOT=/opt/intel/oneapi/mkl/2022.0.2
     ```
 
 - [OpenGL / GLUT](https://www.opengl.org/)
@@ -125,35 +89,6 @@ Once parameters are set to your liking, the simulation can be ran from the termi
 If this doesn't work, execute ```chmod +x run.sh``` prior to running.
 
 ***
-
-### Citation
-If our work has helped your research, please cite the following paper.
-```
-@article{choi_imc_2021,
-    author = {Choi, Andrew and Tong, Dezhong and Jawed, Mohammad K. and Joo, Jungseock},
-    title = "{Implicit Contact Model for Discrete Elastic Rods in Knot Tying}",
-    journal = {Journal of Applied Mechanics},
-    volume = {88},
-    number = {5},
-    year = {2021},
-    month = {03},
-    issn = {0021-8936},
-    doi = {10.1115/1.4050238},
-    url = {https://doi.org/10.1115/1.4050238},
-}
-
-@article{tong_imc_2022,
-    author = {Dezhong Tong and Andrew Choi and Jungseock Joo and M. Khalid Jawed},
-    title = {A fully implicit method for robust frictional contact handling in elastic rods},
-    journal = {Extreme Mechanics Letters},
-    volume = {58},
-    pages = {101924},
-    year = {2023},
-    issn = {2352-4316},
-    doi = {https://doi.org/10.1016/j.eml.2022.101924},
-    url = {https://www.sciencedirect.com/science/article/pii/S2352431622002000},
-}
-```
 
 
 
