@@ -1,0 +1,8 @@
+prefix=/home/dezhong/Desktop/PNAS_Code/motionPlanning/devel
+
+Name: sawyer_right_arm_ikfast_plugin
+Description: Description of sawyer_right_arm_ikfast_plugin
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

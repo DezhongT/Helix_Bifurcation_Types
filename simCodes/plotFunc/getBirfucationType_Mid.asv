@@ -1,0 +1,126 @@
+function [K, T, O, P] = getBirfucationType(name)
+
+dinfo = dir(sprintf("%s/*.txt", name));
+K = [];
+T = [];
+O = [];
+P = [];
+% h1 = figure(1);
+for i = 1:length(dinfo)
+    name = dinfo(i).name;
+    C = regexp(name,'[+-]?\d+\.?\d*','match');
+    
+    c1 = str2double(C{2});
+    c2 = str2double(C{4});
+    
+    poisson = str2double(C{7});
+
+    kapB = str2double(C{8});
+
+    folder = dinfo(i).folder;
+    
+    fileName = sprintf("%s/%s", folder, name);
+    
+    data = importdata(fileName);
+
+    kapo = data(:, 1);
+    erroro = data(:, 10);
+    data = data(data(:,1) > kapB/2, :);
+
+
+    kap = data(:,1);
+    tau = data(:,2);
+    omega = data(:,3);
+    error = data(:, 10);
+    marker = data(:, 12);
+
+    plot(kap, )
+
+    % compute the distance
+
+    S = [kap, error];
+    ds = diff(S, 1);
+    ds = sum(ds.^2, 2);
+    S = cumsum(ds);
+    S = [0; S];
+
+    Sv = linspace(0, S(end), 10000)';
+    % interpoalte kap
+
+    if length(S) ~= length(kap)
+        a ='tdz';
+        continue;
+    end
+    kap = interp1(S, kap, Sv);
+    error = interp1(S, error, Sv);
+
+    midE = max(error)/2;
+
+    idx = (abs((error - midE)/midE) < 1e-3);
+    
+
+    kapM = kap(idx);
+    if isempty(kapM)
+        a = 'tdz';
+        continue;
+    end
+    dkap = max(kapM)- min(kapM);
+
+    style = 1;
+    if dkap < 1e-3
+        style = 0;
+    end
+
+    K = [K; kapB];
+    T = [T; c1 * kapB];
+    O = [O; c2 * kapB];
+    P = [P; style];
+
+    plot(kap, error, 'o-');
+    hold on;
+    plot(kapo, erroro, '^-');
+    hold off;
+
+    pause(0.01);
+    drawnow();
+
+    if abs(c1) < 0.1
+        a = 'tdz';
+    end
+
+
+%     pause(0.01);
+% 
+%     drawnow();
+    
+%     [a, b, axisL] = computeGeometry(kap, tau);
+%     error = error./a; 
+%     dis = sqrt(kap.^2 + tau.^2 + omega.^2);
+%     
+%     x_factor = max(dis) - min(dis);
+%     initialX = min(dis);
+%     y_factor = max(error);
+%     
+%     X = (dis - initialX)/x_factor;
+%     Y = error/y_factor;
+%     
+%     dataK = [X, Y];
+%     ids = dbscan(dataK, 0.2, 10);   
+%     idx = find(ids == 1);
+%     idx = idx(end);
+%     
+%     Peaks = [kap(idx), error(idx) * a(idx)];
+%     
+%     idx = find(error > 1, 1, 'first');
+%     KRef = kap(idx);
+%     K = [K; KRef];
+%     T = [T; KRef * c1];
+%     O = [O; KRef * c2];
+%     P = [P; poisson];
+%     buckInfo{i} = Peaks;
+%     
+%     plot(kap, error, 'o-');    
+end
+
+
+end
