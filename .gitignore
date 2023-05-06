@@ -6,6 +6,6 @@ simCodes/datafiles/
 simCodes/plotFunc/
 simCodes/runSim.asv
 simCodes/simDER
-DataProcessing/Joints
-DataProcessing/Simulations
-DataProcessing/Observations
+# DataProcessing/Joints
+# DataProcessing/Simulations
+# DataProcessing/Observations
