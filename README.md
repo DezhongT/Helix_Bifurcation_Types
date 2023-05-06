@@ -111,8 +111,6 @@ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 ```
 ***
 
-***
-
 ### Setting Parameters
 
 All motion planning parameters are set through a launch file ```helix_run.launch```. The launch file locates in the subfolder ``motionPlanning/src/helix_text/launch/helix_run.launch``. There are a few parameters in the launch file and we justify the meaning of each parameters here.
@@ -141,5 +139,22 @@ Then, the user should generate the input file with simulation by executing the s
 ```bash
  roslaunch helix_test helix_run.launch 
 ```
+
+***
+
+## Data Processing
+The ``DataProcessing`` folder contains the codes and files for classify the buckling points from experimental data. 
+
+### Dependencies
+User should have `MaTLaB` installed in the computer. This script also uses the ``Robotics System Toolbox``
+- [Robotics System Toolbox](https://www.mathworks.com/products/robotics.html)
+  - Robotics System Toolbox rovides tools and algorithms for designing, simulating, testing, and deploying manipulator and mobile robot applications. 
+  - Free trial of Robotics System Toolbox in `MatLab` are [Here](https://www.mathworks.com/campaigns/products/trials.html). Following the instructions and install them in the computer.
+
+### Data Explanation
+The ``Joints`` folder contains the joint trajectory inputted to the robots. The ``Simulations`` folder contains the simulation data. The ``Observations`` contains the raw experimental data. For the files in the ``Observation`` folder, each row is the sampled data, which is a 1 x 12 vector. The 1st to 7th elements are the joints positions expressing the robot's configuration; the 8th to 10th elements are the raw 3D position of the attached marker in the camera frame; the 11th to 12th are the pixel coordinate of the attached marker in the image domain.
+
+### Running the Codes
+The ``PlotFunc`` folder contains the main scripts and relevant functions. The main script is named as ``processAllData.m``. Users can adjust the boolean variable ``withTwist`` to ``True`` or ``False`` to see the processed results of the manipulated rod with external twisting moment or without external moment.
 
 ***
