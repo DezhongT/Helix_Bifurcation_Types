@@ -52,27 +52,44 @@ for i = 1:length(dinfo)
         type = 0;
     end
     
-    errorT = (errorBar1 + errorBar2)/2 + 2*abs(errorBar1 -errorBar2);
-    errorB = (errorBar1 + errorBar2)/2 - 2*abs(errorBar1 -errorBar2);
-   
+    errorT = max([errorBar1, errorBar2]);
+    errorB = min([errorBar1, errorBar2]);
+%     errorB = (errorBar1 + errorBar2)/2 - 2*abs(errorBar1 -errorBar2);
+
     h(1) = plot(kap1 * factor, error1, 'b-');
     hold on;
     h(2) = plot(kap2 * factor, error2, 'r-');  
     
+    legendC = {'Loading', 'Unloading'};
     
-    h(3) = plot(1.05 * kap1 * factor, errorT * ones(length(kap1), 1), 'k--');
-    h(3) = plot(1.05 * kap1 * factor, errorB * ones(length(kap1), 1), 'k--');
+    gap = 1;
     
-    h(4) = plot(kapBar1 * factor, errorBar1, 'go');
-    plot(kapBar2 * factor, errorBar2, 'go');
+    if ~isempty(kapBar1) || ~isempty(kapBar2)
+         h(3) = plot(1.05 * kap1 * factor, errorT .* ones(length(kap1), 1), 'k--');
+         h(3) = plot(1.05 * kap1 * factor, errorB .* ones(length(kap1), 1), 'k--');
+         if ~isempty(kapBar1)
+             h(3) = plot(1.05 * kap1 * factor, errorT .* ones(length(kap1), 1), 'k--');
+             h(4) = plot(kapBar1 * factor, errorBar1, 'o','markerfacecolor','g',...
+                 'markeredgecolor','none','markersize',4);
+             h(5) = plot(mean(kapBar1) * factor, mean(errorBar1), 'kx');
+             legendC = {'Loading','Unloading', 'Test Region', 'Detected points', 'Classification nodes'};
+         end
+         if ~isempty(kapBar2)
+              h(4) = plot(kapBar2 * factor, errorBar2, 'o','markerfacecolor','g',...
+                  'markeredgecolor','none','markersize',4);
+              h(5) = plot(mean(kapBar2) * factor, mean(errorBar2), 'kx');
+              legendC = {'Loading','Unloading', 'Test Region', 'Detected points', 'Classification nodes'};
+         end
+    end    
+        
     hold off;
     
     xlabel('Dis along searching dir, $||\mathbf{S}||$','interpreter','latex');
     ylabel('Error w.r.t. helix, $e$','interpreter','latex');
     title(sprintf('Exploring Direction: S = [%f, %f, %f]', S(1), S(2), S(3)), ...
         'interpreter', 'latex');
-    
-    legend(h,{'Loading','Unloading', 'Test Region', 'Classification Point'},'location','northwest')
+        
+    legend(h, legendC,'location','northwest')
 
     
     fprintf("Type is %d, with diffrence between loading and unloading is %f. (1 is subcritical, 0 is supercritical)\n", type, ratio);
@@ -81,7 +98,8 @@ for i = 1:length(dinfo)
     C11 = [C11; c1];
     C22 = [C22; c2];
     drawnow();
-    
+    clear h;
+
 end
 
 %% Visualize Experimental Results
@@ -90,10 +108,10 @@ Tau = Kappa .* C11;
 idx = find(Type == 0);
 
 if withTwist
-    plot3(Kappa(idx), Tau(idx), Omega(idx), 'bsquare');
+    h(1) = plot3(Kappa(idx), Tau(idx), Omega(idx), 'bsquare');
     hold on;
     idx1 = find(Type == 1);
-    plot3(Kappa(idx1), Tau(idx1), Omega(idx1), 'rsquare');
+    h(2) = plot3(Kappa(idx1), Tau(idx1), Omega(idx1), 'rsquare');
 
     xlabel('\kappa')
     ylabel('\tau')
@@ -113,11 +131,11 @@ if withTwist
     zticklabels({'$-2\pi$','$-\pi$', '$0$', '$\pi$','$2\pi$'})
     daspect([1 1 1])
 else
-    plot(Tau(idx), Kappa(idx), 'bsquare');
+    h(1) = plot(Tau(idx), Kappa(idx), 'bsquare');
     hold on;
     plot(-Tau(idx), Kappa(idx), 'bsquare');
     idx = find(Type == 1);
-    plot(Tau(idx), Kappa(idx), 'rsquare');
+    h(2) = plot(Tau(idx), Kappa(idx), 'rsquare');
     plot(-Tau(idx), Kappa(idx), 'rsquare');
 
     axis equal;
@@ -134,7 +152,7 @@ else
     xlabel('\tau') 
 end
 
-legend({'Supercritical','Subcritical'},'location','northwest')
+legend(h, {'Supercritical','Subcritical'},'location','northwest')
 set(gca,'fontsize',30,'TickLabelInterpreter','latex');
 set(gcf,'color','w')
 

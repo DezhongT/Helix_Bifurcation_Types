@@ -90,10 +90,10 @@ else
     end
 end
 
-kapBar11 = mean(kapBar11);
-error11 = mean(error11);
-kapBar22 = mean(kapBar22);
-error22 = mean(error22);
+% kapBar11 = mean(kapBar11);
+% error11 = mean(error11);
+% kapBar22 = mean(kapBar22);
+% error22 = mean(error22);
 
 alpha = 0.5;
 errorBar = alpha *errorMax + (1-alpha) * errorAve;
